@@ -11,7 +11,7 @@ class StackCategory(Enum):
     INFRASTRUCTURE = "Infrastructure"
 
 class Stack(Base):
-    __tablename__ = "stacks"
+    __tablename__ = "stack"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)

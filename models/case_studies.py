@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, Date
+from sqlalchemy import Column, Integer, String, Text, Date
 from sqlalchemy.orm import relationship
 from database import Base
 from models.associations import case_study_stack_association
@@ -12,3 +12,6 @@ class CaseStudy(Base):
     problem = Column(Text, nullable=False)
     solution = Column(Text, nullable=False)
     stack = relationship("Stack", secondary=case_study_stack_association, back_populates="case_studies")
+    start_date = Column(Date, nullable=False)
+    end_date = Column(Date, nullable=True)
+    

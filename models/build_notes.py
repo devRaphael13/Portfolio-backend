@@ -8,6 +8,7 @@ class Paragraph(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     content = Column(Text, nullable=False)
+    order = Column(Integer, nullable=False)
     build_note_id = Column(Integer, ForeignKey("build_notes.id"), nullable=False)
     build_note = relationship("BuildNote", back_populates="paragraphs")
 

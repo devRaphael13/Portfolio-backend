@@ -6,9 +6,9 @@ class StatResponse(BaseModel):
     value: int
 
 class StatCreate(BaseModel):
-    name: str
+    name: str = Field(..., max_length=120)
     value: int
 
 class StatUpdate(BaseModel):
-    name: str | None = None
+    name: str | None = Field(None, max_length=120)
     value: int | None = None

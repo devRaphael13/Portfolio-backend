@@ -6,6 +6,9 @@ class CaseStudyResponse(BaseModel):
     id: int
     product_type: str
     title: str
+    url: str
+    image_url: str
+    image_public_id: str
     problem: str
     solution: str
     stack: list[StackResponse] = Field(default_factory=list)
@@ -17,8 +20,11 @@ class CaseStudyResponse(BaseModel):
     }
 
 class CaseStudyCreate(BaseModel):
-    product_type: str
-    title: str
+    product_type: str = Field(..., max_length=40)
+    title: str = Field(..., max_length=120)
+    url: str = Field(..., max_length=240)
+    image_url: str = Field(..., max_length=240)
+    image_public_id: str = Field(..., max_length=120)
     problem: str
     solution: str
     stack_ids: list[int] = Field(default_factory=list)
@@ -30,8 +36,11 @@ class CaseStudyCreate(BaseModel):
     }
 
 class CaseStudyUpdate(BaseModel):
-    product_type: str | None = None
-    title: str | None = None
+    product_type: str | None = Field(None, max_length=40)
+    title: str | None = Field(None, max_length=120)
+    url: str = Field(None, max_length=240)
+    image_url: str = Field(None, max_length=240)
+    image_public_id: str = Field(None, max_length=120)
     problem: str | None = None
     solution: str | None = None
     stack_ids: list[int] | None = None

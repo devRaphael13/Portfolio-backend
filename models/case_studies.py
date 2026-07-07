@@ -8,6 +8,9 @@ class CaseStudy(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     product_type = Column(String, nullable=False)
+    url = Column(String, nullable=True)
+    image_url = Column(String, nullable=False)
+    image_public_id = Column(String, nullable=False)
     title = Column(String, nullable=False)
     problem = Column(Text, nullable=False)
     solution = Column(Text, nullable=False)

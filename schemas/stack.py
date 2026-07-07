@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 
 class StackCreate(BaseModel):
     name: str
-    category: str
+    category: str = Field(..., max_length=20)
     years: int
 
     model_config = {
@@ -11,7 +11,7 @@ class StackCreate(BaseModel):
 
 class StackUpdate(BaseModel):
     name: str | None = None
-    category: str | None = None
+    category: str | None = Field(None, max_length=20)
     years: int | None = None
 
     model_config = {

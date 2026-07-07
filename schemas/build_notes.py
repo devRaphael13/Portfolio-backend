@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from datetime import date
 
 class ParagraphResponse(BaseModel):
     id: int
@@ -15,7 +16,7 @@ class BuildNotesResponse(BaseModel):
     title: str
     tagline: str
     read_time: int
-    created_at: str
+    created_at: date
     paragraphs: list[ParagraphResponse] = Field(default_factory=list)
 
     model_config = {
@@ -23,8 +24,8 @@ class BuildNotesResponse(BaseModel):
     }
 
 class BuildNotesCreate(BaseModel):
-    title: str
-    tagline: str
+    title: str = Field(..., max_length=240)
+    tagline: str = Field(..., max_length=240)
     read_time: int
 
     model_config = {
@@ -32,8 +33,8 @@ class BuildNotesCreate(BaseModel):
     }
 
 class BuildNotesUpdate(BaseModel):
-    title: str | None = None
-    tagline: str | None = None
+    title: str | None = Field(None, max_length=240)
+    tagline: str | None = Field(None, max_length=240)
     read_time: int | None = None
 
     model_config = {

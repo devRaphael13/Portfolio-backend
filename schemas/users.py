@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-class ProfileResponse(BaseModel):
+class UserResponse(BaseModel):
     id: int
     image_url: str
     image_public_id: str
@@ -11,7 +11,7 @@ class ProfileResponse(BaseModel):
         "from_attributes": True
     }
 
-class ProfileCreate(BaseModel):
+class UserCreate(BaseModel):
     image_url: str = Field(..., max_length=240)
     image_public_id: str = Field(..., max_length=120)
     resume_url: str = Field(..., max_length=240)
@@ -21,7 +21,7 @@ class ProfileCreate(BaseModel):
         "from_attributes": True
     }
 
-class ProfileUpdate(BaseModel):
+class UserUpdate(BaseModel):
     image_url: str = Field(None, max_length=240)
     image_public_id: str = Field(None, max_length=120)
     resume_url: str = Field(None, max_length=240)

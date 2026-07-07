@@ -7,11 +7,11 @@ class CaseStudy(Base):
     __tablename__ = "case_studies"
 
     id = Column(Integer, primary_key=True, index=True)
-    product_type = Column(String, nullable=False)
-    url = Column(String, nullable=True)
-    image_url = Column(String, nullable=False)
-    image_public_id = Column(String, nullable=False)
-    title = Column(String, nullable=False)
+    product_type = Column(String(40), nullable=False)
+    url = Column(String(240), nullable=True)
+    image_url = Column(String(240), nullable=False)
+    image_public_id = Column(String(120), nullable=False)
+    title = Column(String(120), nullable=False)
     problem = Column(Text, nullable=False)
     solution = Column(Text, nullable=False)
     stack = relationship("Stack", secondary=case_study_stack_association, back_populates="case_studies")

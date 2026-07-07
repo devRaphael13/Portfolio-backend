@@ -16,8 +16,8 @@ class BuildNote(Base):
     __tablename__ = "build_notes"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, nullable=False)
-    tagline = Column(String, nullable=False)
+    title = Column(String(240), nullable=False)
+    tagline = Column(String(240), nullable=False)
     read_time = Column(Integer, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     paragraphs = relationship("Paragraph", back_populates="build_note", cascade="all, delete-orphan")

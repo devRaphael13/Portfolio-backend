@@ -7,7 +7,7 @@ class Service(Base):
     __tablename__ = "services"
 
     id = Column(Integer, primary_key=True, index=True)
-    icon_name = Column(String, nullable=False)
-    name = Column(String, nullable=False)
-    tagline = Column(String, nullable=False)
+    icon_name = Column(String(40), nullable=False)
+    name = Column(String(40), nullable=False)
+    tagline = Column(String(240), nullable=False)
     features = Column(Mutable.as_mutable(JSONB), default=list)

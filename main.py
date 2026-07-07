@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import build_notes, case_studies, experience, messages, profile, services, stats
+from routers import build_notes, case_studies, experience, messages, services, stats, users
 
 app = FastAPI(
     title="Portfolio API",

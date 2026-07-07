@@ -5,9 +5,9 @@ class Experiences(Base):
     __tablename__ = "experiences"
 
     id = Column(Integer, primary_key=True, index=True)
-    role = Column(String, nullable=False)
-    company = Column(String, nullable=False)
-    url = Column(String, nullable=False)
-    location = Column(String, nullable=False)
+    role = Column(String(40), nullable=False)
+    company = Column(String(40), nullable=False)
+    url = Column(String(240), nullable=False)
+    location = Column(String(20), nullable=False)
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=True)

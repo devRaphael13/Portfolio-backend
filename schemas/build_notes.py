@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from datetime import date
+from datetime import datetime
 
 class ParagraphResponse(BaseModel):
     id: int
@@ -24,7 +24,7 @@ class BuildNotesResponse(BaseModel):
     title: str
     tagline: str
     read_time: int
-    created_at: date
+    created_at: datetime
     paragraphs: list[ParagraphResponse] = Field(default_factory=list)
 
     model_config = {
@@ -36,7 +36,7 @@ class BuildNotesLiteResponse(BaseModel):
     title: str
     tagline: str
     read_time: int
-    created_at: date
+    created_at: datetime
 
     model_config = {
         "from_attributes": True

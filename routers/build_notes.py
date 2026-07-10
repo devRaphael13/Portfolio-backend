@@ -13,7 +13,7 @@ def create_note(data: BuildNotesCreate, db: Session = Depends(get_db)):
     note = BuildNote(
         title=data.title,
         tagline=data.tagline,
-        read_time=data.readtime,
+        read_time=data.read_time,
         paragraphs=paragraph_models
     )
 

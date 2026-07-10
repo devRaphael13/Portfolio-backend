@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, EmailStr
-from datetime import date
+from datetime import datetime
 
 class MessageResponse(BaseModel):
     id: int
@@ -8,7 +8,7 @@ class MessageResponse(BaseModel):
     project_type: str
     company: str | None = None
     message: str
-    created_at: date
+    created_at: datetime
 
     model_config = {
         "from_attributes": True

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import build_notes, case_studies, experience, messages, services, stats, users
+from routers import build_notes, case_studies, experience, messages, services, stats, users, auth
 
 app = FastAPI(
     title="Portfolio API",
@@ -7,13 +7,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# app.include_router(build_notes.router)
+app.include_router(build_notes.router)
 # app.include_router(case_studies.router)
 # app.include_router(experience.router)
 # app.include_router(messages.router)
-# app.include_router(profile.router)
+# app.include_router(users.router)
 # app.include_router(services.router)
 # app.include_router(stats.router)
+app.include_router(auth.router)
 
 @app.get("/")
 def root():

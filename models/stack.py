@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Enum, Integer, String
+from enum import Enum
+from sqlalchemy import Column, Integer, String, Enum as SQLEnum
 from sqlalchemy.orm import relationship
 from database import Base
 from models.associations import case_study_stack_association
@@ -15,6 +16,6 @@ class Stack(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
-    category = Column(Enum(StackCategory), nullable=False)
+    category = Column(SQLEnum(StackCategory), nullable=False)
     years = Column(Integer, nullable=False)
     case_studies = relationship("CaseStudy", secondary=case_study_stack_association, back_populates="stack")

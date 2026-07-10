@@ -11,6 +11,14 @@ class ParagraphResponse(BaseModel):
         "from_attributes": True
     }
 
+class ParagraphCreate(BaseModel):
+    content: str
+    order: int
+
+    model_config = {
+        "from_attributes": True
+    }
+
 class BuildNotesResponse(BaseModel):
     id: int
     title: str
@@ -23,10 +31,22 @@ class BuildNotesResponse(BaseModel):
         "from_attributes": True
     }
 
+class BuildNotesLiteResponse(BaseModel):
+    id: int
+    title: str
+    tagline: str
+    read_time: int
+    created_at: date
+
+    model_config = {
+        "from_attributes": True
+    }
+
 class BuildNotesCreate(BaseModel):
     title: str = Field(..., max_length=240)
     tagline: str = Field(..., max_length=240)
     read_time: int
+    paragraphs: list[ParagraphCreate]
 
     model_config = {
         "from_attributes": True

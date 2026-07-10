@@ -4,5 +4,5 @@ from .stack import Stack
 from .messages import Message
 from .experiences import Experiences
 from .stats import Stat
-from .users import Profile
+from .users import User
 

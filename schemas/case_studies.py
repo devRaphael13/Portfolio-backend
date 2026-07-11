@@ -12,6 +12,7 @@ class CaseStudyResponse(BaseModel):
     problem: str
     solution: str
     stack: list[StackResponse] = Field(default_factory=list)
+    featured: bool
     start_date: date
     end_date: date | None = None
 
@@ -28,6 +29,7 @@ class CaseStudyCreate(BaseModel):
     problem: str
     solution: str
     stack_ids: list[int] = Field(default_factory=list)
+    featured: bool = Field(default=False)
     start_date: date
     end_date: date | None = None
 
@@ -41,6 +43,7 @@ class CaseStudyUpdate(BaseModel):
     url: str = Field(None, max_length=240)
     image_url: str = Field(None, max_length=240)
     image_public_id: str = Field(None, max_length=120)
+    featured: bool | None = Field(None)
     problem: str | None = None
     solution: str | None = None
     stack_ids: list[int] | None = None

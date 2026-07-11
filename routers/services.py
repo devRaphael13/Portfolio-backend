@@ -1,10 +1,11 @@
-from fastapi import Depends, HTTPException, APIRouter, status
+from fastapi import Depends, HTTPException, APIRouter, status, Query
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
 from dependencies.db import get_db
 from sqlalchemy.orm import Session
 from schemas.services import ServiceCreate, ServiceResponse, ServiceUpdate
 from models.services import Service
+from typing import Optional
 
 router = APIRouter(prefix="/services", tags=["Services"])
 
@@ -18,8 +19,11 @@ def create_service(data: ServiceCreate, db: Session = Depends(get_db)):
     return service
 
 @router.get("/", response_model=Page[ServiceResponse])
-def list_service(db: Session = Depends(get_db)):
+def list_service(featured: Optional[bool] = Query(default=None), db: Session = Depends(get_db)):
     services = db.query(Service)
+
+    if featured is not None:
+        services = services.filter(Service.featured == featured)
     return paginate(services)
 
 @router.get("/{service_id}", response_model=ServiceResponse)

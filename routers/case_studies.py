@@ -1,10 +1,12 @@
-from fastapi import Depends, HTTPException, APIRouter, status
+from fastapi import Depends, HTTPException, APIRouter, status, Query
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
 from dependencies.db import get_db
 from sqlalchemy.orm import Session
 from schemas.case_studies import CaseStudyCreate, CaseStudyResponse, CaseStudyUpdate
 from models.case_studies import CaseStudy
+from typing import Optional
+
 
 router = APIRouter(prefix="/case-studies", tags=["Case Studies"])
 
@@ -18,8 +20,11 @@ def create_case_study(data: CaseStudyCreate, db: Session = Depends(get_db)):
     return case_study
 
 @router.get("/", response_model=Page[CaseStudyResponse])
-def list_case_study(db: Session = Depends(get_db)):
+def list_case_study(featured: Optional[bool] = Query(default=None), db: Session = Depends(get_db)):
     case_studies = db.query(CaseStudy)
+
+    if featured is not None:
+        case_studies = case_studies.filter(CaseStudy.featured == featured)
     return paginate(case_studies)
 
 @router.get("/{case_study_id}", response_model=CaseStudyResponse)

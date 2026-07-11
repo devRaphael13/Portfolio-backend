@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends, status, Query, HTTPException
+from fastapi_pagination import Page
+from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy.orm import Session, joinedload
 from dependencies.db import get_db
 from schemas.build_notes import BuildNotesCreate, BuildNotesResponse, BuildNotesUpdate, BuildNotesLiteResponse
@@ -24,14 +26,10 @@ def create_note(data: BuildNotesCreate, db: Session = Depends(get_db)):
     return note
 
 
-@router.get("/", response_model=list[BuildNotesLiteResponse])
-def list_notes(
-    page: int = Query(default=1, ge=1),
-    page_size: int = Query(default=6, ge=1, le=50),
-    db: Session = Depends(get_db)
-):
+@router.get("/", response_model=Page[BuildNotesLiteResponse])
+def list_notes(db: Session = Depends(get_db)):
     notes = db.query(BuildNote)
-    return notes.offset((page - 1) * page_size).limit(page_size).all()
+    return paginate(notes)
 
 @router.get("/{note_id}", response_model=BuildNotesResponse)
 def retrieve_note(note_id: int, db: Session = Depends(get_db)):

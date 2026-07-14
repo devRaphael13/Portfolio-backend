@@ -42,7 +42,7 @@ def update_service(service_id: int, data: ServiceUpdate, db: Session = Depends(g
     if not service:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Service not found")
     
-    for field, value in data.model_dump(exclude_unset=True).items():
+    for field, value in data.model_dump(exclude_unset=True, exclude_none=True).items():
         setattr(service, field, value)
 
     db.commit()

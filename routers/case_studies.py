@@ -43,7 +43,7 @@ def update_case_study(case_study_id: int, data: CaseStudyUpdate, db: Session = D
     if not case_study:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Case Study not found")
     
-    for field, value in data.model_dump(exclude_unset=True).items():
+    for field, value in data.model_dump(exclude_unset=True, exclude_none=True).items():
         setattr(case_study, field, value)
 
     db.commit()

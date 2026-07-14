@@ -48,7 +48,7 @@ def update_note(note_id: int, data: BuildNotesUpdate, db: Session = Depends(get_
     if not note:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Note not found")
     
-    for field, value in data.model_dump(exclude_unset=True).items():
+    for field, value in data.model_dump(exclude_unset=True, exclude_none=True).items():
         setattr(note, field, value)
     
     db.commit()

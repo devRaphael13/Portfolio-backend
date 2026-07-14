@@ -38,7 +38,7 @@ def update_stat(stat_id: int, data: StatUpdate, db: Session = Depends(get_db)):
     if not stat:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Stat not found")
     
-    for field, value in data.model_dump(exclude_unset=True).items():
+    for field, value in data.model_dump(exclude_unset=True, exclude_none=True).items():
         setattr(stat, field, value)
 
     db.commit()

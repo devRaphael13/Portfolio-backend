@@ -38,7 +38,7 @@ def update_experience(experience_id: int, data: ExperienceUpdate, db: Session = 
     if not experience:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Experience not found")
     
-    for field, value in data.model_dump(exclude_unset=True).items():
+    for field, value in data.model_dump(exclude_unset=True, exclude_none=True).items():
         setattr(experience, field, value)
 
     db.commit()

@@ -38,7 +38,12 @@ def update_user(user_id: int, data: UserUpdate, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
-    for field, value in data.model_dump(exclude_unset=True).items():
+    for field, value in data.model_dump(exclude_unset=True, exclude_none=True).items():
+        if field == "password":
+            hashed = bcrypt.hashpw(value.encode(), bcrypt.gensalt())
+            field = "hashed_password"
+            value = hashed.decode()
+
         setattr(user, field, value)
 
     db.commit()

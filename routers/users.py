@@ -8,7 +8,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(data: UserCreate, db: Session = Depends(get_db)):
-    user = User(**data.model_dump())
+    user = User(**data.model_dump(exclude_unset=True))
     db.add(user)
     db.commit()
     db.refresh(user)

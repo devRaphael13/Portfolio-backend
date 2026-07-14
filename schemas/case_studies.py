@@ -40,9 +40,9 @@ class CaseStudyCreate(BaseModel):
 class CaseStudyUpdate(BaseModel):
     product_type: str | None = Field(None, max_length=40)
     title: str | None = Field(None, max_length=120)
-    url: str = Field(None, max_length=240)
-    image_url: str = Field(None, max_length=240)
-    image_public_id: str = Field(None, max_length=120)
+    url: str | None = Field(None, max_length=240)
+    image_url: str | None = Field(None, max_length=240)
+    image_public_id: str | None = Field(None, max_length=120)
     featured: bool | None = Field(None)
     problem: str | None = None
     solution: str | None = None

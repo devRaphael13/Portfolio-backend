@@ -15,10 +15,10 @@ class UserResponse(BaseModel):
 class UserCreate(BaseModel):
     email: EmailStr
     password: str = Field(..., max_length=255)
-    image_url: str = Field(None, max_length=240)
-    image_public_id: str = Field(None, max_length=120)
-    resume_url: str = Field(None, max_length=240)
-    resume_public_id: str = Field(None, max_length=120)
+    image_url: str | None = Field(None, max_length=240)
+    image_public_id: str | None = Field(None, max_length=120)
+    resume_url: str | None = Field(None, max_length=240)
+    resume_public_id: str | None = Field(None, max_length=120)
 
     model_config = {
         "from_attributes": True
@@ -26,11 +26,11 @@ class UserCreate(BaseModel):
 
 class UserUpdate(BaseModel):
     email: str
-    password: str = Field(None, max_length=255)
-    image_url: str = Field(None, max_length=240)
-    image_public_id: str = Field(None, max_length=120)
-    resume_url: str = Field(None, max_length=240)
-    resume_public_id: str = Field(None, max_length=120)
+    password: str | None = Field(None, max_length=255)
+    image_url: str | None = Field(None, max_length=240)
+    image_public_id: str | None = Field(None, max_length=120)
+    resume_url: str | None = Field(None, max_length=240)
+    resume_public_id: str | None = Field(None, max_length=120)
 
     model_config = {
         "from_attributes": True

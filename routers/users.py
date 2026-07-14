@@ -3,12 +3,18 @@ from dependencies.db import get_db
 from sqlalchemy.orm import Session
 from schemas.users import UserCreate, UserResponse, UserUpdate
 from models.users import User
+import bcrypt
+
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def create_user(data: UserCreate, db: Session = Depends(get_db)):
-    user = User(**data.model_dump(exclude_unset=True))
+    hashed = bcrypt.hashpw(data.password.encode(), bcrypt.gensalt())
+    user = User(
+        email=data.email,
+        hashed_password=hashed.decode()
+    )
     db.add(user)
     db.commit()
     db.refresh(user)

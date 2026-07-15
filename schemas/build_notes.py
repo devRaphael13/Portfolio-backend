@@ -19,6 +19,14 @@ class ParagraphCreate(BaseModel):
         "from_attributes": True
     }
 
+class ParagraphOrder(BaseModel):
+    id: int
+    order: int
+
+class ParagraphUpdate(BaseModel):
+    id: int
+    content: str
+
 class BuildNotesResponse(BaseModel):
     id: int
     title: str
@@ -60,3 +68,4 @@ class BuildNotesUpdate(BaseModel):
     model_config = {
         "from_attributes": True
     }
+    

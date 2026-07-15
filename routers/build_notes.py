@@ -98,3 +98,16 @@ def update_paragraph(paragraph_id: int, data: ParagraphUpdate, db: Session = Dep
     db.refresh(paragraph)
     return paragraph
 
+@router.delete("/paragraphs/{paragraph_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_paragraph(paragraph_id: int, db: Session = Depends(get_db)):
+    paragraph = db.query(Paragraph).filter(
+        Paragraph.id == paragraph_id
+    ).first()
+
+    if not paragraph:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Paragraph not found")
+    
+    db.delete(paragraph)
+    db.commit()
+
+

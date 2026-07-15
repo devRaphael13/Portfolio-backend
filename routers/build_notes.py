@@ -83,20 +83,23 @@ def reorder_paragraphs(note_id: int, data: list[ParagraphOrder], db: Session = D
 
     db.commit()
 
-@router.patch("/paragraphs/{paragraph_id}", response_model=ParagraphResponse)
-def update_paragraph(paragraph_id: int, data: ParagraphUpdate, db: Session = Depends(get_db)):
-    paragraph = db.query(Paragraph).filter(
-        Paragraph.id == paragraph_id
-    ).first()
+@router.patch("/{note_id}/paragraphs", status_code=status.HTTP_204_NO_CONTENT)
+def update_paragraphs(note_id: int, data: list[ParagraphUpdate], db: Session = Depends(get_db)):
+    paragraphs = {
+        p.id: p for p in db.query(Paragraph).filter(Paragraph.note_id == note_id).all()
+    }
 
-    if not paragraph:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Paragraph not found")
-    
-    paragraph.content = data.content
+    unknown_ids = {item.id for item in data} - set(paragraphs.keys())
+    if unknown_ids:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Paragraph ids not found on this note: {sorted(unknown_ids)}"
+        )
+
+    for item in data:
+        paragraphs[item.id].content = item.content
 
     db.commit()
-    db.refresh(paragraph)
-    return paragraph
 
 @router.delete("/paragraphs/{paragraph_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_paragraph(paragraph_id: int, db: Session = Depends(get_db)):

@@ -25,7 +25,7 @@ class ParagraphOrder(BaseModel):
 
 class ParagraphUpdate(BaseModel):
     id: int
-    content: str
+    content: str = Field(min_length=1)
 
 class BuildNotesResponse(BaseModel):
     id: int

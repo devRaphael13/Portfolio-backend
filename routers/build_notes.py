@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session, joinedload, selectinload
 from dependencies.db import get_db
 from schemas.build_notes import BuildNotesCreate, BuildNotesResponse, BuildNotesUpdate, BuildNotesLiteResponse, ParagraphOrder, ParagraphResponse, ParagraphUpdate
 from models.build_notes import BuildNote, Paragraph
@@ -34,7 +34,7 @@ def list_notes(db: Session = Depends(get_db)):
 @router.get("/{note_id}", response_model=BuildNotesResponse)
 def retrieve_note(note_id: int, db: Session = Depends(get_db)):
     note = db.query(BuildNote).options(
-        joinedload(BuildNote.paragraphs)
+        selectinload(BuildNote.paragraphs)
     ).filter(BuildNote.id == note_id).first()
 
     if not note:
@@ -55,7 +55,7 @@ def update_note(note_id: int, data: BuildNotesUpdate, db: Session = Depends(get_
     db.refresh(note)
 
     note = db.query(BuildNote).options(
-        joinedload(BuildNote.paragraphs)
+        selectinload(BuildNote.paragraphs)
     ).filter(BuildNote.id == note_id).first()
 
     return note

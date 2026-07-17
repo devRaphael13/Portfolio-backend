@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_pagination import add_pagination
-from routers import build_notes, case_studies, experiences, messages, services, stats, users, auth, file_handler
+from routers import build_notes, case_studies, experiences, messages, services, stats, users, auth, file_handler, stack
 
 app = FastAPI(
     title="Portfolio API",
@@ -10,6 +10,7 @@ app = FastAPI(
 )
 
 
+app.include_router(stack.router)
 app.include_router(build_notes.router)
 app.include_router(file_handler.router)
 app.include_router(case_studies.router)

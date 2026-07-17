@@ -1,18 +1,10 @@
 from pydantic import BaseModel, Field
+from models.stack import StackCategory
 
 class StackCreate(BaseModel):
     name: str
-    category: str = Field(..., max_length=20)
+    category: StackCategory
     years: int
-
-    model_config = {
-        "from_attributes": True
-    }
-
-class StackUpdate(BaseModel):
-    name: str | None = None
-    category: str | None = Field(None, max_length=20)
-    years: int | None = None
 
     model_config = {
         "from_attributes": True
@@ -21,7 +13,7 @@ class StackUpdate(BaseModel):
 class StackResponse(BaseModel):
     id: int
     name: str
-    category: str
+    category: StackCategory
     years: int
 
     model_config = {
@@ -29,7 +21,7 @@ class StackResponse(BaseModel):
     }
 
 class StackCategoryGroup(BaseModel):
-    category: str
+    category: StackCategory
     stacks: list[StackResponse] = Field(default_factory=list)
 
     model_config = {

@@ -33,6 +33,7 @@ class BuildNotesResponse(BaseModel):
     tagline: str
     read_time: int
     created_at: datetime
+    featured: bool
     paragraphs: list[ParagraphResponse] = Field(default_factory=list)
 
     model_config = {
@@ -44,6 +45,7 @@ class BuildNotesLiteResponse(BaseModel):
     title: str
     tagline: str
     read_time: int
+    featured: bool
     created_at: datetime
 
     model_config = {
@@ -54,6 +56,7 @@ class BuildNotesCreate(BaseModel):
     title: str = Field(..., max_length=240)
     tagline: str = Field(..., max_length=240)
     read_time: int
+    featured: bool = Field(default=False)
     paragraphs: list[ParagraphCreate]
 
     model_config = {
@@ -64,6 +67,7 @@ class BuildNotesUpdate(BaseModel):
     title: str | None = Field(None, max_length=240)
     tagline: str | None = Field(None, max_length=240)
     read_time: int | None = None
+    featured: bool | None = None
 
     model_config = {
         "from_attributes": True

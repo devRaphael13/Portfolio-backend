@@ -16,6 +16,7 @@ def create_note(data: BuildNotesCreate, db: Session = Depends(get_db)):
         title=data.title,
         tagline=data.tagline,
         read_time=data.read_time,
+        featured=data.featured,
         paragraphs=paragraph_models
     )
 

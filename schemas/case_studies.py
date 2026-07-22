@@ -13,6 +13,7 @@ class ExperienceName(BaseModel):
 class CaseStudyResponse(BaseModel):
     id: int
     industry: str
+    summary: str
     title: str
     url: str
     image_url: str
@@ -32,6 +33,7 @@ class CaseStudyResponse(BaseModel):
 
 class CaseStudyCreate(BaseModel):
     industry: str = Field(..., max_length=40)
+    summary: str = Field(..., max_length=240)
     title: str = Field(..., max_length=120)
     url: str = Field(..., max_length=240)
     image_url: str = Field(..., max_length=240)
@@ -51,6 +53,7 @@ class CaseStudyCreate(BaseModel):
 class CaseStudyUpdate(BaseModel):
     industry: str | None = Field(None, max_length=40)
     title: str | None = Field(None, max_length=120)
+    summary: str | None = Field(None, max_length=240)
     url: str | None = Field(None, max_length=240)
     image_url: str | None = Field(None, max_length=240)
     image_public_id: str | None = Field(None, max_length=120)

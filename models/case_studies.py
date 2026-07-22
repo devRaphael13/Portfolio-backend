@@ -11,6 +11,7 @@ class CaseStudy(Base):
     url = Column(String(240), nullable=True)
     image_url = Column(String(240), nullable=False)
     image_public_id = Column(String(120), nullable=False)
+    summary = Column(String(240), nullable=False)
     title = Column(String(120), nullable=False)
     problem = Column(Text, nullable=False)
     solution = Column(Text, nullable=False)
